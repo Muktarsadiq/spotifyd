@@ -90,19 +90,12 @@ jobs:
         id: target_triple
         shell: bash
         run: |
-          # Map OS/arch to Rust target target_triple
-          if [ "${{ matrix.target }}" != "" ]; then
-            # Use the cross-compilation target if specified
+          # Use the cross-compilation target if specified
+          if [ "${{ matrix.target}}" != ""]; then
             TARGET_TRIPLE="${{ matrix.target }}"
-          elif [ "${{ matrix.os }}" = "linux" ] && [ "${{ matrix.arch }}" = "x86_64" ]; then
-            TARGET_TRIPLE="x86_64-unknown-linux-gnu"
-          elif [ "${{ matrix.os }}" = "macos" ] && [ "${{ matrix.arch }}" = "x86_64" ]; then
-            TARGET_TRIPLE="x86_64-apple-darwin"
-          elif [ "${{ matrix.os }}" = "macos" ] && [ "${{ matrix.arch }}" = "aarch64" ]; then
-            TARGET_TRIPLE="aarch64-apple-darwin"
-          else 
-            echo "Unknown target: ${{ matrix.os }}-${{ matrix.arch }}"
-            exit 1
+          else
+            # Get the host target from rustc 
+            TARGET_TRIPLE=$(rustc -vV | grep 'host:' | awk '{print $2}')
           fi
           echo "target_triple=$TARGET_TRIPLE" >> $GITHUB_OUTPUT
           echo "Target triple: $TARGET_TRIPLE"
@@ -143,8 +136,6 @@ jobs:
           do
             pushd $artifact_dir
             artifact_name=$(basename $artifact_dir)
-            # Remove -legacy suffix for old naming format
-            artifact_name=${artifact_name%-legacy}
             tar czvf $artifact_name.tar.gz spotifyd
             shasum -a 512 $artifact_name.tar.gz > $artifact_name.sha512
             popd

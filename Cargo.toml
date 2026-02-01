@@ -113,10 +113,6 @@ bin-dir = "{ bin }{ binary-ext }"
 pkg-fmt = "tgz"
 disabled-strategies = ["quick-install", "compile"]
 
-[package.metadata.binstall.overrides.x86_64-pc-windows-msvc]
-pkg-fmt = "zip"
-
-
 [profile.release]
 lto = true
 

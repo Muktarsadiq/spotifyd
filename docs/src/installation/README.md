@@ -3,9 +3,9 @@
 Getting `spotifyd` on your system should be as easy as downloading a binary in most cases.
 If you'd like to learn how to compile `spotifyd` yourself, head over to [building from source](./source.md).
 
-## Using cargo-binstall (Recommended)
+## Using cargo-binstall (Optional)
 
-If you have Rust installed, the easiest way to install `spotifyd` is using `cargo-binstall`
+If you have Rust installed, you can quickly install `spotifyd` is using `cargo-binstall`
 
 ```console
 cargo binstall spotifyd
@@ -58,18 +58,12 @@ and the platform architecture that they were built for. You can find the latest 
 If you're unsure which version to choose, just go for `default` on desktop systems and `slim` on headless systems.
 
 **Asset Naming Convention:**
-Starting with version 0.4.2, release assets follow Rust's standard target triple naming format:
-
-Format: `spotifyd-{target-triple}-{variant}.tar.gz`
+Release assets follow Rust's standard target triple naming format: `spotifyd-{target-triple}-{variant}.tar.gz`
 
 Examples:
 `spotifyd-x86_64-unknown-linux-gnu-full.tar.gz`
 `spotifyd-aarch64-apple-darwin-default.tar.gz`
 `spotifyd-armv7-unknown-linux-gnueabihf-slim.tar.gz`
-
-**Legacy naming:** (deprecated, available only in version 0.4.2 for backwards compatibility)
-`spotifyd-linux-x86_64-full-legacy.tar.gz`
-`spotifyd-macos-aarch64-default-legacy.tar.gz`
 
 **Architecture:**
 
